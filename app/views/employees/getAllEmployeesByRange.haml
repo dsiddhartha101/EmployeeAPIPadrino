@@ -4,7 +4,7 @@
   %body
     %h3 This is a simple Padrino application for employees.
     -# %p= @employees
-    %h4 List of employees!
+    %h4 List of employees by emp id range! [#{@lower_limit} to #{@upper_limit}]
     %ul
       - @employees.each do |employee|
         %li [EID #{employee.employee_id}] #{employee.first_name} #{employee.last_name} - #{employee.email} | #{employee.position}

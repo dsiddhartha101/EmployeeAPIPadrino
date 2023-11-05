@@ -6,8 +6,23 @@ EmployeeApiPadrino::App.controllers :employees_controller, :map => 'api' do
 
   controller :get_employees_rendered, :map => 'renderedEmployees' do
     get :all_employees_rendered, :provides => :json, :map => 'getAllEmployees' do
-      @employees = Employee.all # TODO - add limit to the number of Employees being fetched
+      @employees = Employee.all
       render 'employees/getAllEmployees'
+    end
+
+    get :all_employees_by_limit_rendered, :with => :emp_limit, :map => 'getAllEmployeesByLimit' do
+      default_limit = 3
+      @limit = params[:emp_limit].to_i || default_limit
+      @employees = Employee.limit(@limit) # TODO - add limit to the number of Employees being fetched
+      render 'employees/getAllEmployeesByLimit'
+    end
+
+    get :all_employees_by_range_rendered, :map => 'getAllEmployeesByRange' do
+      default_upper_limit = 3
+      @lower_limit = params[:lower_limit].to_i || 0
+      @upper_limit = params[:upper_limit].to_i || default_upper_limit
+      @employees = Employee.where(:employee_id.gte => @lower_limit, :employee_id.lte => @upper_limit) # TODO - add limit to the number of Employees being fetched
+      render 'employees/getAllEmployeesByRange'
     end
   end
 
