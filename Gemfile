@@ -16,6 +16,7 @@ source 'https://rubygems.org'
 # Project requirements
 gem "activesupport", require: "active_support/all"
 gem 'rake'
+gem "rack-cors", require: "rack/cors"
 
 # Server Handler
 gem 'puma'
@@ -40,3 +41,7 @@ gem 'padrino', '0.15.2'
 # %w(core support gen helpers cache mailer admin).each do |g|
 #   gem 'padrino-' + g, '0.15.2'
 # end
+
+# GraphQL integration
+gem "graphql"
+gem 'graphql-ruby'

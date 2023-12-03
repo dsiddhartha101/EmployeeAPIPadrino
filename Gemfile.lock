@@ -27,6 +27,8 @@ GEM
     diff-lcs (1.5.0)
     drb (2.1.1)
       ruby2_keywords
+    graphql (2.0.15)
+    graphql-ruby (9001.0)
     haml (6.2.3)
       temple (>= 0.8.2)
       thor
@@ -102,6 +104,8 @@ GEM
     puma (6.2.2)
       nio4r (~> 2.0)
     rack (2.2.8)
+    rack-cors (2.0.1)
+      rack (>= 2.0.0)
     rack-protection (3.1.0)
       rack (~> 2.2, >= 2.2.4)
     rake (13.0.6)
@@ -138,11 +142,14 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   bson
+  graphql
+  graphql-ruby
   haml
   mongo
   mongo_mapper
   padrino (= 0.15.2)
   puma
+  rack-cors
   rake
   rspec
 

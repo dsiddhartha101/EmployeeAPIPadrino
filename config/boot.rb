@@ -4,6 +4,7 @@ PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 
 # Load our dependencies
 require 'bundler/setup'
+require 'rack/cors'
 Bundler.require(:default, RACK_ENV)
 
 ##
@@ -55,6 +56,13 @@ end
 # Add your after (RE)load hooks here
 #
 Padrino.after_load do
+  # use Rack::Cors do
+  #   allow do
+  #     origins '*'
+  #     resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options]
+  #   end
+  # end
+  require Padrino.root('app/graphql/schema')
 end
 
 Padrino.load!

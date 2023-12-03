@@ -12,6 +12,7 @@ class Employee
   key :salary, Integer
   key :hire_date, Date
   key :address, Hash
+  key :deactivated, Boolean
 
   timestamps!
 end

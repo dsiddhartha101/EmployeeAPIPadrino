@@ -1,6 +1,6 @@
-EmployeeApiPadrino::App.controllers :employees_controller, :map => 'api' do
+EmployeeApiPadrino::App.controllers :employees_controller, :map => "/api" do
 
-  get '/example' do
+  get '/test' do
     'Hello world!'
   end
 
@@ -22,7 +22,7 @@ EmployeeApiPadrino::App.controllers :employees_controller, :map => 'api' do
       @lower_limit = params[:lower_limit].to_i || 0
       @upper_limit = params[:upper_limit].to_i || default_upper_limit
       @employees = Employee.where(:employee_id.gte => @lower_limit, :employee_id.lte => @upper_limit) # TODO - add limit to the number of Employees being fetched
-      render 'employees/getAllEmployeesByRange'
+      render 'employees/getAllEmployeesByRange' # can pass arg obj like :arg_ame => {...}
     end
   end
 
@@ -38,11 +38,16 @@ EmployeeApiPadrino::App.controllers :employees_controller, :map => 'api' do
       @employee = Employee.where(employee_id: param_emp_id)
       if @employee
         @employee.to_json
-        puts "Employee: #{@employee.to_json}"
       else
         status 404  # HTTP status code for "Not Found"
         { error: 'Employee not found' }.to_json
       end
+    end
+
+    get :get_active_employees, :provides => :json, :map => 'getActiveEmployees' do
+      @employees = Employee.all
+      @employees.reject! { |emp| !emp.deactivated.nil? && emp.deactivated }
+      @employees.to_json
     end
 
     # get :index, :map => '/foo/bar' do

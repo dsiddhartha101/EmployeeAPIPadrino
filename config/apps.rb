@@ -31,7 +31,23 @@ Padrino.configure_apps do
   # set :protection, :except => :path_traversal
   # set :protect_from_csrf, true
   set :server, :puma
+  set :reload, true
+  set :autoload_paths, %w[app/models app/helpers app/controllers app/graphql app/graphql/types]
+  use Rack::Cors do
+    allow do
+      origins '*'
+      resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options]
+    end
+  end
 end
+
+# Padrino::Application.configure do |app|
+#   app.set :autoload_paths, %w[app/models app/helpers app/controllers app/graphql]
+# end
+
+# Padrino.configure do |app|
+#   set :autoload_paths, %w[app/models app/helpers app/controllers app/graphql]
+# end
 
 # Mounts the core application for this project
 Padrino.mount('EmployeeApiPadrino::App', :app_file => Padrino.root('app/app.rb')).to('/')
